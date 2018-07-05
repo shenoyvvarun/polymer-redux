@@ -61,8 +61,10 @@ export default function PolymerRedux(store) {
 				const value = (typeof statePath === 'function') ?
 					statePath.call(element, state) :
 					Polymer.Path.get(state, statePath);
+				const prevValue = element[name];
+				const changed = prevValue != value;
 
-				const changed = element._setPendingPropertyOrPath(name, value, true);
+				element._setPendingPropertyOrPath(name, value, true);
 				propertiesChanged = propertiesChanged || changed;
 			});
 			if (propertiesChanged) {
